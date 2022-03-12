@@ -1,5 +1,5 @@
-extends Resource
 class_name SpriteMesh, "icons/sprite_mesh.png"
+extends Resource
 
 #####################
 # Public properties #

@@ -1,6 +1,6 @@
 tool
-extends MeshInstance
 class_name SpriteMeshInstance, "icons/sprite_mesh_instance.png"
+extends MeshInstance
 
 #####################
 # Public properties #
@@ -926,8 +926,8 @@ func _get_frame_image(frame: int) -> Image:
 
 	# Frame
 	var pos := Vector2(
-		_current_frame() % animation_hframes * _get_frame_width(),
-		_current_frame() / animation_hframes * _get_frame_height()
+		frame % animation_hframes * _get_frame_width(),
+		frame / animation_hframes * _get_frame_height()
 	)
 	var size := Vector2(_get_frame_width(), _get_frame_height())
 	image = image.get_rect(Rect2(pos, size))
