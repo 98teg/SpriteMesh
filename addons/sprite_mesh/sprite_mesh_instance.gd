@@ -678,7 +678,7 @@ func _left_face_visible(image: Image, x: int, y: int) -> bool:
 
 
 func _draw_right_depth_faces(st: SurfaceTool, image: Image) -> void:
-	for x in range(1, _get_frame_width()):
+	for x in range(_get_frame_width()):
 		var y0 := 0
 
 		for y in range(_get_frame_height()):
