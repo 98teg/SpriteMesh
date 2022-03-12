@@ -140,23 +140,13 @@ func set_texture(new_texture: Texture) -> void:
 
 
 func set_mesh_depth(new_mesh_depth: float) -> void:
-	if new_mesh_depth < 0:
-		new_mesh_depth = 0
-	elif new_mesh_depth > 128:
-		new_mesh_depth = 128
-
-	mesh_depth = new_mesh_depth
+	mesh_depth = clamp(new_mesh_depth, 0, 128)
 
 	_request_update()
 
 
 func set_mesh_pixel_size(new_mesh_pixel_size: float) -> void:
-	if new_mesh_pixel_size < 0:
-		new_mesh_pixel_size = 0
-	elif new_mesh_pixel_size > 128:
-		new_mesh_pixel_size = 128
-
-	mesh_pixel_size = new_mesh_pixel_size
+	mesh_pixel_size = clamp(new_mesh_pixel_size, 0, 128)
 
 	_request_update()
 
@@ -168,32 +158,19 @@ func set_mesh_double_sided(new_mesh_double_sided: bool) -> void:
 
 
 func set_animation_hframes(new_animation_hframes: int) -> void:
-	if new_animation_hframes < 1:
-		new_animation_hframes = 1
-	elif new_animation_hframes > 16384:
-		new_animation_hframes = 16384
-
-	animation_hframes = new_animation_hframes
+	animation_hframes = int(clamp(new_animation_hframes, 1, 16384))
 
 	_request_update()
 
 
 func set_animation_vframes(new_animation_vframes: int) -> void:
-	if new_animation_vframes < 1:
-		new_animation_vframes = 1
-	elif new_animation_vframes > 16384:
-		new_animation_vframes = 16384
-
-	animation_vframes = new_animation_vframes
+	animation_vframes = int(clamp(new_animation_vframes, 1, 16384))
 
 	_request_update()
 
 
 func set_animation_frame(new_animation_frame: int) -> void:
-	if new_animation_frame < 0:
-		new_animation_frame = 0
-
-	animation_frame = new_animation_frame % _n_of_frames()
+	animation_frame = int(abs(new_animation_frame)) % _n_of_frames()
 
 	animation_frame_coords.x = animation_frame % animation_hframes
 	animation_frame_coords.y = animation_frame / animation_hframes
@@ -242,12 +219,7 @@ func set_position_flip_v(new_position_flip_v: bool) -> void:
 
 
 func set_position_axis(new_position_axis: int) -> void:
-	if new_position_axis < 0:
-		new_position_axis = 0
-	elif new_position_axis > 2:
-		new_position_axis = 2
-
-	position_axis = new_position_axis
+	position_axis = int(clamp(new_position_axis, 0, 2))
 
 	_request_update()
 
@@ -263,49 +235,27 @@ func set_region_rect(new_region_rect: Rect2) -> void:
 		region_rect = Rect2(0, 0, 1, 1)
 		return
 
-	region_rect = new_region_rect
+	var pos_x := int(clamp(new_region_rect.position.x, 0, _get_texture_width() - 1))
+	var pos_y := int(clamp(new_region_rect.position.y, 0, _get_texture_height() - 1))
+	var size_x := int(clamp(new_region_rect.size.x, 1, _get_texture_width() - pos_x))
+	var size_y := int(clamp(new_region_rect.size.y, 1, _get_texture_height() - pos_y))
 
-	if region_rect.position.x < 0:
-		region_rect.position.x = 0
-	elif region_rect.position.x >= _get_texture_width():
-		region_rect.position.x = _get_texture_width() - 1
-
-	if region_rect.position.y < 0:
-		region_rect.position.y = 0
-	elif region_rect.position.y >= _get_texture_height():
-		region_rect.position.y = _get_texture_height() - 1
-
-	if region_rect.size.x < 1:
-		region_rect.size.x = 1
-	elif region_rect.size.x > _get_texture_width() - region_rect.position.x:
-		region_rect.size.x = _get_texture_width() - region_rect.position.x
-
-	if region_rect.size.y < 1:
-		region_rect.size.y = 1
-	elif region_rect.size.y >= _get_texture_height() - region_rect.position.y:
-		region_rect.size.y = _get_texture_height() - region_rect.position.y
+	region_rect.position.x = pos_x
+	region_rect.position.y = pos_y
+	region_rect.size.x = size_x
+	region_rect.size.y = size_y
 
 	_request_update()
 
 
 func set_generation_alpha_threshold(new_generation_alpha_threshold: float) -> void:
-	if new_generation_alpha_threshold < 0:
-		new_generation_alpha_threshold = 0
-	elif new_generation_alpha_threshold > 1:
-		new_generation_alpha_threshold = 1
-
-	generation_alpha_threshold = new_generation_alpha_threshold
+	generation_alpha_threshold = clamp(new_generation_alpha_threshold, 0, 1)
 
 	_request_update()
 
 
 func set_generation_uv_correction(new_generation_uv_correction: float) -> void:
-	if new_generation_uv_correction < 0:
-		new_generation_uv_correction = 0
-	elif new_generation_uv_correction > 30:
-		new_generation_uv_correction = 30
-
-	generation_uv_correction = new_generation_uv_correction
+	generation_uv_correction = clamp(new_generation_uv_correction, 0, 30)
 
 	_request_update()
 
