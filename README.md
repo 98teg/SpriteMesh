@@ -24,7 +24,7 @@ I recommend this method if you don't need to generate the meshes procedurally. U
 2. Assign the texture for your model.
 3. Change any of the properties, if needed. When you change a property, you need to wait three seconds for the editor to update the meshes. This behaviour is intended, as it provides a better user experience.
 4. Save or copy the generated mesh if you want to use it in [`MeshInstance`](https://docs.godotengine.org/en/stable/classes/class_meshinstance.html?highlight=MeshInstance) nodes.
-5. Save or copy the generate material if you want to use it in [`MeshInstance`](https://docs.godotengine.org/en/stable/classes/class_meshinstance.html?highlight=MeshInstance) nodes. Remember to make it unique if you reuse this [`SpriteMeshInstance`](#class-spritemeshinstance) to generate other meshes.
+5. Save or copy the generated material if you want to use it in [`MeshInstance`](https://docs.godotengine.org/en/stable/classes/class_meshinstance.html?highlight=MeshInstance) nodes. Remember to make it unique if you reuse this [`SpriteMeshInstance`](#class-spritemeshinstance) to generate other meshes.
 
 If you want to use animations and pretend to use [`SpriteMeshInstance`](#class-spritemeshinstance) nodes in your scene instead, you can save or copy the [`SpriteMesh`](#class-spritemesh) and assign it to other [`SpriteMeshInstance`](#class-spritemeshinstance) nodes. It is more memory efficient than creating another [`SpriteMeshInstance`](#class-spritemeshinstance) and setting the same texture.
 
