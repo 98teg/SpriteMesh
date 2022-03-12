@@ -535,7 +535,7 @@ func _generate_model() -> void:
 
 
 func _generate_meshes() -> void:
-	generated_sprite_mesh.meshes = []
+	generated_sprite_mesh.meshes.clear()
 
 	var st := SurfaceTool.new()
 
