@@ -500,7 +500,8 @@ func _generate_mesh(st: SurfaceTool) -> void:
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 
 	_draw_sprite_faces(st, image)
-	_draw_depth_faces(st, image)
+	if mesh_depth != 0:
+		_draw_depth_faces(st, image)
 
 	st.generate_normals()
 	st.index()
