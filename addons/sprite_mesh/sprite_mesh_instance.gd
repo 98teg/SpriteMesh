@@ -1,35 +1,35 @@
-tool
+@tool
 class_name SpriteMeshInstance, "icons/sprite_mesh_instance.png"
-extends MeshInstance
+extends MeshInstance3D
 
 #####################
 # Public properties #
 #####################
 
-var texture setget set_texture, get_texture
+var texture : get = get_texture, set = set_texture
 # Mesh properties
-var mesh_depth := 1.0 setget set_mesh_depth, get_mesh_depth
-var mesh_pixel_size := 0.01 setget set_mesh_pixel_size, get_mesh_pixel_size
-var mesh_double_sided := true setget set_mesh_double_sided, get_mesh_double_sided
+var mesh_depth := 1.0 : get = get_mesh_depth, set = set_mesh_depth
+var mesh_pixel_size := 0.01 : get = get_mesh_pixel_size, set = set_mesh_pixel_size
+var mesh_double_sided := true : get = get_mesh_double_sided, set = set_mesh_double_sided
 # Animation
-var animation_hframes := 1 setget set_animation_hframes, get_animation_hframes
-var animation_vframes := 1 setget set_animation_vframes, get_animation_vframes
-var animation_frame := 0 setget set_animation_frame, get_animation_frame
-var animation_frame_coords := Vector2(0, 0) setget set_animation_frame_coords, get_animation_frame_coords
+var animation_hframes := 1 : get = get_animation_hframes, set = set_animation_hframes
+var animation_vframes := 1 : get = get_animation_vframes, set = set_animation_vframes
+var animation_frame := 0 : get = get_animation_frame, set = set_animation_frame
+var animation_frame_coords := Vector2(0, 0) : get = get_animation_frame_coords, set = set_animation_frame_coords
 # Position
-var position_centered := true setget set_position_centered, get_position_centered
-var position_offset := Vector3.ZERO setget set_position_offset, get_position_offset
-var position_flip_h := false setget set_position_flip_h, get_position_flip_h
-var position_flip_v := false setget set_position_flip_v, get_position_flip_v
-var position_axis : int = Vector3.AXIS_Z setget set_position_axis, get_position_axis
+var position_centered := true : get = get_position_centered, set = set_position_centered
+var position_offset := Vector3.ZERO : get = get_position_offset, set = set_position_offset
+var position_flip_h := false : get = get_position_flip_h, set = set_position_flip_h
+var position_flip_v := false : get = get_position_flip_v, set = set_position_flip_v
+var position_axis : int = Vector3.AXIS_Z : get = get_position_axis, set = set_position_axis
 # Region
-var region_enabled := false setget set_region_enabled, get_region_enabled
-var region_rect := Rect2(0, 0, 1, 1) setget set_region_rect, get_region_rect
+var region_enabled := false : get = get_region_enabled, set = set_region_enabled
+var region_rect := Rect2(0, 0, 1, 1) : get = get_region_rect, set = set_region_rect
 # Generation parameters
-var generation_alpha_threshold := 0.0 setget set_generation_alpha_threshold, get_generation_alpha_threshold
-var generation_uv_correction := 0.0 setget set_generation_uv_correction, get_generation_uv_correction
+var generation_alpha_threshold := 0.0 : get = get_generation_alpha_threshold, set = set_generation_alpha_threshold
+var generation_uv_correction := 0.0 : get = get_generation_uv_correction, set = set_generation_uv_correction
 # Generated SpriteMesh
-var generated_sprite_mesh := SpriteMesh.new() setget set_generated_sprite_mesh, get_generated_sprite_mesh
+var generated_sprite_mesh := SpriteMesh.new() : get = get_generated_sprite_mesh, set = set_generated_sprite_mesh
 
 ######################
 # Private properties #
@@ -133,7 +133,7 @@ func get_generated_sprite_mesh() -> SpriteMesh:
 # Setters #
 ###########
 
-func set_texture(new_texture: Texture) -> void:
+func set_texture(new_texture: Texture2D) -> void:
 	texture = new_texture
 
 	_request_update()
@@ -297,7 +297,7 @@ func _add_main_section(properties: Array) -> void:
 		"name": "texture",
 		"type": TYPE_OBJECT,
 		"hint": PROPERTY_HINT_RESOURCE_TYPE,
-		"hint_string": "Texture"
+		"hint_string": "Texture2D"
 	})
 
 
@@ -310,13 +310,13 @@ func _add_mesh_properties_section(properties: Array) -> void:
 	})
 	properties.append({
 		"name": "mesh_depth",
-		"type": TYPE_REAL,
+		"type": TYPE_FLOAT,
 		"hint": PROPERTY_HINT_RANGE,
 		"hint_string": "0,128"
 	})
 	properties.append({
 		"name": "mesh_pixel_size",
-		"type": TYPE_REAL,
+		"type": TYPE_FLOAT,
 		"hint": PROPERTY_HINT_RANGE,
 		"hint_string": "0,128"
 	})
@@ -416,13 +416,13 @@ func _add_generation_parameters_section(properties: Array) -> void:
 	})
 	properties.append({
 		"name": "generation_alpha_threshold",
-		"type": TYPE_REAL,
+		"type": TYPE_FLOAT,
 		"hint": PROPERTY_HINT_RANGE,
 		"hint_string": "0,1"
 	})
 	properties.append({
 		"name": "generation_uv_correction",
-		"type": TYPE_REAL,
+		"type": TYPE_FLOAT,
 		"hint": PROPERTY_HINT_RANGE,
 		"hint_string": "0,30"
 	})
@@ -511,14 +511,14 @@ func _generate_mesh(st: SurfaceTool) -> void:
 
 func _generate_material() -> void:
 	generated_sprite_mesh.material.set_texture(
-		SpatialMaterial.TEXTURE_ALBEDO,
+		StandardMaterial3D.TEXTURE_ALBEDO,
 		texture
 	)
 
 func _apply_generated_sprite_mesh() -> void:
 	mesh = get_mesh_with_index(animation_frame)
-	if get_surface_material_count() != 0:
-		set_surface_material(0, generated_sprite_mesh.material)
+	if get_surface_override_material_count() != 0:
+		set_surface_override_material(0, generated_sprite_mesh.material)
 
 #####################
 # Draw sprite faces #
@@ -710,13 +710,13 @@ func _down_face_visible(image: Image, x: int, y: int) -> bool:
 ###########
 
 func _connect_resource() -> void:
-	if not generated_sprite_mesh.is_connected("changed", self, "_apply_generated_sprite_mesh"):
-		generated_sprite_mesh.connect("changed", self, "_apply_generated_sprite_mesh")
+	if not generated_sprite_mesh.is_connected("changed",Callable(self,"_apply_generated_sprite_mesh")):
+		generated_sprite_mesh.connect("changed",Callable(self,"_apply_generated_sprite_mesh"))
 
 
 func _clear_model() -> void:
-	if get_surface_material_count() != 0:
-		set_surface_material(0, null)
+	if get_surface_override_material_count() != 0:
+		set_surface_override_material(0, null)
 
 	mesh = null
 
@@ -933,7 +933,7 @@ func _get_frame_image(frame: int) -> Image:
 	var size := Vector2(_get_frame_width(), _get_frame_height())
 	image = image.get_rect(Rect2(pos, size))
 
-	image.lock()
+	false # image.lock() # TODOConverter40, Image no longer requires locking, `false` helps to not break one line if/else, so it can freely be removed
 
 	return image
 

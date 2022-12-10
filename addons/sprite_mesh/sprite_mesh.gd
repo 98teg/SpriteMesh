@@ -5,5 +5,5 @@ extends Resource
 # Public properties #
 #####################
 
-export(Array, Mesh) var meshes := []
-export(SpatialMaterial) var material = SpatialMaterial.new()
+@export var meshes := [] # (Array, Mesh)
+@export var material: StandardMaterial3D = StandardMaterial3D.new()
