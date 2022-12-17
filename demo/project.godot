@@ -8,8 +8,29 @@
 
 config_version=5
 
+_global_script_classes=[{
+"base": "Resource",
+"class": &"SpriteMesh",
+"language": &"GDScript",
+"path": "res://addons/sprite_mesh/sprite_mesh.gd"
+}, {
+"base": "MeshInstance3D",
+"class": &"SpriteMeshInstance",
+"language": &"GDScript",
+"path": "res://addons/sprite_mesh/sprite_mesh_instance.gd"
+}]
+_global_script_class_icons={
+"SpriteMesh": "res://addons/sprite_mesh/icons/sprite_mesh.svg",
+"SpriteMeshInstance": "res://addons/sprite_mesh/icons/sprite_mesh_instance.svg"
+}
+
 [application]
 
-config/name="Empty"
+config/name="SpriteMesh"
+run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/sprite_mesh/plugin.cfg")
