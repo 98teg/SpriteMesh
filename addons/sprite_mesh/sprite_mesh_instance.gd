@@ -1,39 +1,59 @@
-tool
-class_name SpriteMeshInstance, "icons/sprite_mesh_instance.png"
-extends MeshInstance
+@tool
+@icon("icons/sprite_mesh_instance.png")
+class_name SpriteMeshInstance
+extends MeshInstance3D
 
 #####################
 # Public properties #
 #####################
 
-var texture setget set_texture, get_texture
+var texture : Texture2D : set = set_texture, get = get_texture
 # Mesh properties
-var mesh_depth := 1.0 setget set_mesh_depth, get_mesh_depth
-var mesh_pixel_size := 0.01 setget set_mesh_pixel_size, get_mesh_pixel_size
-var mesh_double_sided := true setget set_mesh_double_sided, get_mesh_double_sided
+var mesh_depth : float : set = set_mesh_depth, get = get_mesh_depth
+var mesh_pixel_size : float : set = set_mesh_pixel_size, get = get_mesh_pixel_size
+var mesh_double_sided : bool : set = set_mesh_double_sided, get = get_mesh_double_sided
 # Animation
-var animation_hframes := 1 setget set_animation_hframes, get_animation_hframes
-var animation_vframes := 1 setget set_animation_vframes, get_animation_vframes
-var animation_frame := 0 setget set_animation_frame, get_animation_frame
-var animation_frame_coords := Vector2(0, 0) setget set_animation_frame_coords, get_animation_frame_coords
+var animation_hframes : int : set = set_animation_hframes, get = get_animation_hframes
+var animation_vframes : int : set = set_animation_vframes, get = get_animation_vframes
+var animation_frame : int : set = set_animation_frame, get = get_animation_frame
+var animation_frame_coords : Vector2 : set = set_animation_frame_coords, get = get_animation_frame_coords
 # Position
-var position_centered := true setget set_position_centered, get_position_centered
-var position_offset := Vector3.ZERO setget set_position_offset, get_position_offset
-var position_flip_h := false setget set_position_flip_h, get_position_flip_h
-var position_flip_v := false setget set_position_flip_v, get_position_flip_v
-var position_axis : int = Vector3.AXIS_Z setget set_position_axis, get_position_axis
+var position_centered : bool : set = set_position_centered, get = get_position_centered
+var position_offset : Vector3 : set = set_position_offset, get = get_position_offset
+var position_flip_h : bool : set = set_position_flip_h, get = get_position_flip_h
+var position_flip_v : bool : set = set_position_flip_v, get = get_position_flip_v
+var position_axis : int : set = set_position_axis, get = get_position_axis
 # Region
-var region_enabled := false setget set_region_enabled, get_region_enabled
-var region_rect := Rect2(0, 0, 1, 1) setget set_region_rect, get_region_rect
+var region_enabled : bool : set = set_region_enabled, get = get_region_enabled
+var region_rect : Rect2 : set = set_region_rect, get = get_region_rect
 # Generation parameters
-var generation_alpha_threshold := 0.0 setget set_generation_alpha_threshold, get_generation_alpha_threshold
-var generation_uv_correction := 0.0 setget set_generation_uv_correction, get_generation_uv_correction
+var generation_alpha_threshold : float : set = set_generation_alpha_threshold, get = get_generation_alpha_threshold
+var generation_uv_correction : float : set = set_generation_uv_correction, get = get_generation_uv_correction
 # Generated SpriteMesh
-var generated_sprite_mesh := SpriteMesh.new() setget set_generated_sprite_mesh, get_generated_sprite_mesh
+var generated_sprite_mesh : SpriteMesh : set = set_generated_sprite_mesh, get = get_generated_sprite_mesh
 
 ######################
 # Private properties #
 ######################
+
+var _texture : Texture2D
+var _mesh_depth := 1.0
+var _mesh_pixel_size := 0.01
+var _mesh_double_sided := true
+var _animation_hframes := 1
+var _animation_vframes := 1
+var _animation_frame := 0
+var _animation_frame_coords := Vector2(0, 0)
+var _position_centered := true
+var _position_offset := Vector3.ZERO
+var _position_flip_h := false
+var _position_flip_v := false
+var _position_axis := Vector3.AXIS_Z
+var _region_enabled := false
+var _region_rect := Rect2(0, 0, 1, 1)
+var _generation_alpha_threshold := 0.0
+var _generation_uv_correction := 0.0
+var _generated_sprite_mesh := SpriteMesh.new()
 
 var _pending_update := false
 var _seconds_left := 0.0
@@ -45,6 +65,7 @@ var _seconds_left := 0.0
 func update_sprite_mesh() -> void:
 	if _pending_update:
 		_pending_update = false
+		print("Updated Sprite Mesh Instance")
 		_generate_model()
 
 ###########
@@ -59,126 +80,126 @@ func get_mesh_with_index(index: int) -> Mesh:
 
 
 func get_texture():
-	return texture
+	return _texture
 
 
 func get_mesh_depth() -> float:
-	return mesh_depth
+	return _mesh_depth
 
 
 func get_mesh_pixel_size() -> float:
-	return mesh_pixel_size
+	return _mesh_pixel_size
 
 
 func get_mesh_double_sided() -> bool:
-	return mesh_double_sided
+	return _mesh_double_sided
 
 
 func get_animation_hframes() -> int:
-	return animation_hframes
+	return _animation_hframes
 
 
 func get_animation_vframes() -> int:
-	return animation_vframes
+	return _animation_vframes
 
 
 func get_animation_frame() -> int:
-	return animation_frame
+	return _animation_frame
 
 
 func get_animation_frame_coords() -> Vector2:
-	return animation_frame_coords
+	return _animation_frame_coords
 
 
 func get_position_centered() -> bool:
-	return position_centered
+	return _position_centered
 
 
 func get_position_offset() -> Vector3:
-	return position_offset
+	return _position_offset
 
 
 func get_position_flip_h() -> bool:
-	return position_flip_h
+	return _position_flip_h
 
 
 func get_position_flip_v() -> bool:
-	return position_flip_v
+	return _position_flip_v
 
 
 func get_position_axis() -> int:
-	return position_axis
+	return _position_axis
 
 
 func get_region_enabled() -> bool:
-	return region_enabled
+	return _region_enabled
 
 
 func get_region_rect() -> Rect2:
-	return region_rect
+	return _region_rect
 
 
 func get_generation_alpha_threshold() -> float:
-	return generation_alpha_threshold
+	return _generation_alpha_threshold
 
 
 func get_generation_uv_correction() -> float:
-	return generation_uv_correction
+	return _generation_uv_correction
 
 
 func get_generated_sprite_mesh() -> SpriteMesh:
-	return generated_sprite_mesh
+	return _generated_sprite_mesh
 
 ###########
 # Setters #
 ###########
 
-func set_texture(new_texture: Texture) -> void:
-	texture = new_texture
+func set_texture(new_texture: Texture2D) -> void:
+	_texture = new_texture
 
 	_request_update()
 
 
 func set_mesh_depth(new_mesh_depth: float) -> void:
-	mesh_depth = clamp(new_mesh_depth, 0, 128)
+	_mesh_depth = clamp(new_mesh_depth, 0, 128)
 
 	_request_update()
 
 
 func set_mesh_pixel_size(new_mesh_pixel_size: float) -> void:
-	mesh_pixel_size = clamp(new_mesh_pixel_size, 0, 128)
+	_mesh_pixel_size = clamp(new_mesh_pixel_size, 0, 128)
 
 	_request_update()
 
 
 func set_mesh_double_sided(new_mesh_double_sided: bool) -> void:
-	mesh_double_sided = new_mesh_double_sided
+	_mesh_double_sided = new_mesh_double_sided
 
 	_request_update()
 
 
 func set_animation_hframes(new_animation_hframes: int) -> void:
-	animation_hframes = int(clamp(new_animation_hframes, 1, 16384))
+	_animation_hframes = int(clamp(new_animation_hframes, 1, 16384))
 
 	_request_update()
 
 
 func set_animation_vframes(new_animation_vframes: int) -> void:
-	animation_vframes = int(clamp(new_animation_vframes, 1, 16384))
+	_animation_vframes = int(clamp(new_animation_vframes, 1, 16384))
 
 	_request_update()
 
 
 func set_animation_frame(new_animation_frame: int) -> void:
-	animation_frame = int(abs(new_animation_frame)) % _n_of_frames()
+	_animation_frame = int(abs(new_animation_frame)) % _n_of_frames()
 
-	animation_frame_coords.x = animation_frame % animation_hframes
-	animation_frame_coords.y = animation_frame / animation_hframes
+	_animation_frame_coords.x = _animation_frame % _animation_hframes
+	_animation_frame_coords.y = _animation_frame / _animation_hframes
 
-	if generated_sprite_mesh.meshes.size() == 0:
+	if _generated_sprite_mesh.meshes.size() == 0:
 		return
 
-	mesh = get_mesh_with_index(animation_frame)
+	mesh = get_mesh_with_index(_animation_frame)
 
 
 func set_animation_frame_coords(new_animation_frame_coords: Vector2) -> void:
@@ -195,44 +216,44 @@ func set_animation_frame_coords(new_animation_frame_coords: Vector2) -> void:
 
 
 func set_position_centered(new_position_centered: bool) -> void:
-	position_centered = new_position_centered
+	_position_centered = new_position_centered
 
 	_request_update()
 
 
 func set_position_offset(new_position_offset: Vector3) -> void:
-	position_offset = new_position_offset
+	_position_offset = new_position_offset
 
 	_request_update()
 
 
 func set_position_flip_h(new_position_flip_h: bool) -> void:
-	position_flip_h = new_position_flip_h
+	_position_flip_h = new_position_flip_h
 
 	_request_update()
 
 
 func set_position_flip_v(new_position_flip_v: bool) -> void:
-	position_flip_v = new_position_flip_v
+	_position_flip_v = new_position_flip_v
 
 	_request_update()
 
 
 func set_position_axis(new_position_axis: int) -> void:
-	position_axis = int(clamp(new_position_axis, 0, 2))
+	_position_axis = int(clamp(new_position_axis, 0, 2))
 
 	_request_update()
 
 
 func set_region_enabled(new_region_enabled: bool) -> void:
-	region_enabled = new_region_enabled
+	_region_enabled = new_region_enabled
 
 	_request_update()
 
 
 func set_region_rect(new_region_rect: Rect2) -> void:
 	if texture == null:
-		region_rect = Rect2(0, 0, 1, 1)
+		_region_rect = Rect2(0, 0, 1, 1)
 		return
 
 	var pos_x := int(clamp(new_region_rect.position.x, 0, _get_texture_width() - 1))
@@ -240,28 +261,28 @@ func set_region_rect(new_region_rect: Rect2) -> void:
 	var size_x := int(clamp(new_region_rect.size.x, 1, _get_texture_width() - pos_x))
 	var size_y := int(clamp(new_region_rect.size.y, 1, _get_texture_height() - pos_y))
 
-	region_rect.position.x = pos_x
-	region_rect.position.y = pos_y
-	region_rect.size.x = size_x
-	region_rect.size.y = size_y
+	_region_rect.position.x = pos_x
+	_region_rect.position.y = pos_y
+	_region_rect.size.x = size_x
+	_region_rect.size.y = size_y
 
 	_request_update()
 
 
 func set_generation_alpha_threshold(new_generation_alpha_threshold: float) -> void:
-	generation_alpha_threshold = clamp(new_generation_alpha_threshold, 0, 1)
+	_generation_alpha_threshold = clamp(new_generation_alpha_threshold, 0, 1)
 
 	_request_update()
 
 
 func set_generation_uv_correction(new_generation_uv_correction: float) -> void:
-	generation_uv_correction = clamp(new_generation_uv_correction, 0, 30)
+	_generation_uv_correction = clamp(new_generation_uv_correction, 0, 30)
 
 	_request_update()
 
 
 func set_generated_sprite_mesh(new_generated_sprite_mesh: SpriteMesh) -> void:
-	generated_sprite_mesh = new_generated_sprite_mesh
+	_generated_sprite_mesh = new_generated_sprite_mesh
 
 	if generated_sprite_mesh == null:
 		_clear_model()
@@ -310,13 +331,13 @@ func _add_mesh_properties_section(properties: Array) -> void:
 	})
 	properties.append({
 		"name": "mesh_depth",
-		"type": TYPE_REAL,
+		"type": TYPE_FLOAT,
 		"hint": PROPERTY_HINT_RANGE,
 		"hint_string": "0,128"
 	})
 	properties.append({
 		"name": "mesh_pixel_size",
-		"type": TYPE_REAL,
+		"type": TYPE_FLOAT,
 		"hint": PROPERTY_HINT_RANGE,
 		"hint_string": "0,128"
 	})
@@ -416,13 +437,13 @@ func _add_generation_parameters_section(properties: Array) -> void:
 	})
 	properties.append({
 		"name": "generation_alpha_threshold",
-		"type": TYPE_REAL,
+		"type": TYPE_FLOAT,
 		"hint": PROPERTY_HINT_RANGE,
 		"hint_string": "0,1"
 	})
 	properties.append({
 		"name": "generation_uv_correction",
-		"type": TYPE_REAL,
+		"type": TYPE_FLOAT,
 		"hint": PROPERTY_HINT_RANGE,
 		"hint_string": "0,30"
 	})
@@ -456,7 +477,7 @@ func _ready():
 ##############
 
 func _process(delta):
-	if Engine.editor_hint and _pending_update:
+	if Engine.is_editor_hint() and _pending_update:
 		if _seconds_left <= 0:
 			_pending_update = false
 			_generate_model()
@@ -467,7 +488,7 @@ func _process(delta):
 func _request_update() -> void:
 	_pending_update = true
 
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		_seconds_left = 3
 
 ####################
@@ -506,19 +527,22 @@ func _generate_mesh(st: SurfaceTool) -> void:
 	st.generate_normals()
 	st.index()
 
-	generated_sprite_mesh.meshes.append(st.commit())
+	_generated_sprite_mesh.meshes.append(st.commit())
 
 
 func _generate_material() -> void:
-	generated_sprite_mesh.material.set_texture(
-		SpatialMaterial.TEXTURE_ALBEDO,
+	_generated_sprite_mesh.material.set_texture(
+		StandardMaterial3D.TEXTURE_ALBEDO,
 		texture
 	)
 
+	_generated_sprite_mesh.material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
+
+
 func _apply_generated_sprite_mesh() -> void:
 	mesh = get_mesh_with_index(animation_frame)
-	if get_surface_material_count() != 0:
-		set_surface_material(0, generated_sprite_mesh.material)
+	if get_surface_override_material_count() != 0:
+		set_surface_override_material(0, generated_sprite_mesh.material)
 
 #####################
 # Draw sprite faces #
@@ -710,13 +734,13 @@ func _down_face_visible(image: Image, x: int, y: int) -> bool:
 ###########
 
 func _connect_resource() -> void:
-	if not generated_sprite_mesh.is_connected("changed", self, "_apply_generated_sprite_mesh"):
-		generated_sprite_mesh.connect("changed", self, "_apply_generated_sprite_mesh")
+	if not _generated_sprite_mesh.changed.is_connected(_apply_generated_sprite_mesh):
+		_generated_sprite_mesh.changed.connect(_apply_generated_sprite_mesh)
 
 
 func _clear_model() -> void:
-	if get_surface_material_count() != 0:
-		set_surface_material(0, null)
+	if get_surface_override_material_count() != 0:
+		set_surface_override_material(0, null)
 
 	mesh = null
 
@@ -730,18 +754,18 @@ func _draw_quad(st: SurfaceTool, v: Array, uv: Array) -> void:
 		v = _flip_v(v)
 		uv = _flip_v(uv)
 
-	st.add_uv(uv[0])
+	st.set_uv(uv[0])
 	st.add_vertex(v[0])
-	st.add_uv(uv[1])
+	st.set_uv(uv[1])
 	st.add_vertex(v[1])
-	st.add_uv(uv[2])
+	st.set_uv(uv[2])
 	st.add_vertex(v[2])
 
-	st.add_uv(uv[0])
+	st.set_uv(uv[0])
 	st.add_vertex(v[0])
-	st.add_uv(uv[2])
+	st.set_uv(uv[2])
 	st.add_vertex(v[2])
-	st.add_uv(uv[3])
+	st.set_uv(uv[3])
 	st.add_vertex(v[3])
 
 
@@ -918,7 +942,7 @@ func _get_uv_quad(x0: int, x1: int, y0: int, y1: int) -> Array:
 ########################
 
 func _get_frame_image(frame: int) -> Image:
-	var image = texture.get_data()
+	var image = texture.get_image()
 	image.decompress()
 
 	# Region
@@ -931,9 +955,7 @@ func _get_frame_image(frame: int) -> Image:
 		frame / animation_hframes * _get_frame_height()
 	)
 	var size := Vector2(_get_frame_width(), _get_frame_height())
-	image = image.get_rect(Rect2(pos, size))
-
-	image.lock()
+	image = image.get_region(Rect2(pos, size))
 
 	return image
 
