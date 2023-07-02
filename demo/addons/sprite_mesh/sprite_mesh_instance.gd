@@ -1,7 +1,7 @@
 @tool
+@icon("icons/sprite_mesh_instance.svg")
 class_name SpriteMeshInstance
 extends MeshInstance3D
-@icon("icons/sprite_mesh_instance.svg")
 
 
 const Quad = preload("./scripts/quad.gd")
@@ -79,7 +79,7 @@ func _request_update() -> void:
 
 func _generate_sprite_mesh() -> SpriteMesh:
 	var sprite_mesh := SpriteMesh.new()
-	sprite_mesh.connect("changed", _apply_generated_sprite_mesh)
+	sprite_mesh.changed.connect(_apply_generated_sprite_mesh)
 
 	if texture == null:
 		return sprite_mesh
@@ -333,12 +333,15 @@ func set_generation_uv_correction(new_generation_uv_correction: float) -> void:
 
 func set_generated_sprite_mesh(new_generated_sprite_mesh: SpriteMesh) -> void:
 	generated_sprite_mesh = new_generated_sprite_mesh
-	generated_sprite_mesh.connect("changed", _apply_generated_sprite_mesh)
 
 	if generated_sprite_mesh == null:
 		_clear_sprite_mesh()
-	else:
-		_apply_generated_sprite_mesh()
+		return
+
+	if not generated_sprite_mesh.changed.is_connected(_apply_generated_sprite_mesh):
+		generated_sprite_mesh.changed.connect(_apply_generated_sprite_mesh)
+
+	_apply_generated_sprite_mesh()
 
 
 func get_texture():

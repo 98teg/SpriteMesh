@@ -1,6 +1,6 @@
+@icon("icons/sprite_mesh.svg")
 class_name SpriteMesh
 extends Resource
-@icon("icons/sprite_mesh.svg")
 
 
 @export var meshes: Array[Mesh] = []: set = set_meshes
