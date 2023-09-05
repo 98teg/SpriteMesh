@@ -3,11 +3,11 @@ class_name SpriteMesh
 extends Resource
 
 
-@export var meshes: Array[Mesh] = []: set = set_meshes
+@export var meshes: Array[ArrayMesh] = []: set = set_meshes
 @export var material: StandardMaterial3D = StandardMaterial3D.new(): set = set_material
 
 
-func set_meshes(new_meshes: Array[Mesh]) -> void:
+func set_meshes(new_meshes: Array[ArrayMesh]) -> void:
 	if meshes != new_meshes:
 		meshes = new_meshes
 		emit_changed()

@@ -2,23 +2,23 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyn3ci2uqcd8l"
-path="res://.godot/imported/pickaxe.png-b2865d4e9df31d80bb85b9bd7373543a.ctex"
+uid="uid://npw7hmehpbcb"
+path="res://.godot/imported/SpriteSheet.png-10ccef92ecc44972b0db9647b1464056.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://pickaxe.png"
-dest_files=["res://.godot/imported/pickaxe.png-b2865d4e9df31d80bb85b9bd7373543a.ctex"]
+source_file="res://assets/NinjaAdventure/Actor/Characters/Noble/SpriteSheet.png"
+dest_files=["res://.godot/imported/SpriteSheet.png-10ccef92ecc44972b0db9647b1464056.ctex"]
 
 [params]
 
 compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=false

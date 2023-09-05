@@ -15,6 +15,7 @@ func _init(vertices: Array[Vector3], uvs: Array[Vector2]) -> void:
 
 
 func render(st: SurfaceTool) -> void:
+	st.set_smooth_group(-1)
 	st.set_uv(uvs[0])
 	st.add_vertex(vertices[0])
 	st.set_uv(uvs[1])
@@ -22,6 +23,7 @@ func render(st: SurfaceTool) -> void:
 	st.set_uv(uvs[2])
 	st.add_vertex(vertices[2])
 
+	st.set_smooth_group(-1)
 	st.set_uv(uvs[0])
 	st.add_vertex(vertices[0])
 	st.set_uv(uvs[2])
@@ -60,6 +62,18 @@ func get_center() -> Vector3:
 			min(vertices[0].x, vertices[1].x, vertices[2].x, vertices[3].x),
 			min(vertices[0].y, vertices[1].y, vertices[2].y, vertices[3].y),
 			min(vertices[0].z, vertices[1].z, vertices[2].z, vertices[3].z),
+		)) / 2
+
+
+func get_uvs_center() -> Vector2:
+	return (
+		Vector2(
+			max(uvs[0].x, uvs[1].x, uvs[2].x, uvs[3].x),
+			max(uvs[0].y, uvs[1].y, uvs[2].y, uvs[3].y),
+		) +
+		Vector2(
+			min(uvs[0].x, uvs[1].x, uvs[2].x, uvs[3].x),
+			min(uvs[0].y, uvs[1].y, uvs[2].y, uvs[3].y),
 		)) / 2
 
 
