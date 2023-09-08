@@ -1,9 +1,11 @@
 @icon("icons/sprite_mesh.svg")
 class_name SpriteMesh
 extends Resource
+## [SpriteMesh] is a [Resource] that contains an array of meshes and their material.
 
-
+## Array of meshes. Each mesh of the array represents a frame of the animation.
 @export var meshes: Array[ArrayMesh] = []: set = set_meshes
+## The meshes' material.
 @export var material: StandardMaterial3D = StandardMaterial3D.new(): set = set_material
 
 
