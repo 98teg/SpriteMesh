@@ -41,7 +41,7 @@ I recommend this method if you need to generate the meshes procedurally. Bellow 
 
 ![Code Usage](./doc/images/code_usage.png)
 
-Even if this option is available, I recommend only executing it on methods that are not called frequently, such as `_ready`. If you want to, for example, flip a character sprite, it is better to just rotate the model than changing the `flip_h` property and regenerating it. The only properties meant to change frequently at runtime are `frame` and `frame_coords`. And as such, they don't require to call [`update_sprite_mesh`](#void-update_sprite_mesh) to be applied.
+Even if this option is available, I recommend only executing it on methods that are not called frequently, such as `_ready`. If you want to, for example, flip a character sprite, it is better to just rotate the model than changing the [`flip_h`](#bool-flip_h--false) property and regenerating it. The only properties meant to change frequently at runtime are [`frame`](#int-frame--0) and [`frame_coords`](#vector2i-frame_coords--vector2i0-0). And as such, they don't require to call [`update_sprite_mesh`](#void-update_sprite_mesh) to be applied.
 
 ## Class `SpriteMesh`
 
@@ -96,7 +96,6 @@ Array[ArrayMesh] get_meshes()
 | `bool` | [`flip_h`](#bool-flip_h--false) | `false` |
 | `bool` | [`flip_v`](#bool-flip_v--false) | `false` |
 | `int` | [`frame`](#int-frame--0) | `0` |
-| `Vector2i` | [`frame_coords`](#vector2i-frame_coords--vector2i0-0) | `Vector2i(0, 0)` |
 | `Vector2i` | [`frame_coords`](#vector2i-frame_coords--vector2i0-0) | `Vector2i(0, 0)` |
 | `SpriteMesh` | [`generated_sprite_mesh`](#spritemesh-generated_sprite_mesh) |  |
 | `int` | [`hframes`](#int-hframes--1) | `1` |
