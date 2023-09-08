@@ -1,0 +1,3 @@
+[codespell]
+skip = godot-cpp,portable-file-dialogs
+builtin = en-GB_to_en-US

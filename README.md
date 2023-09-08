@@ -46,6 +46,7 @@ Even if this option is available, I recommend only executing it on methods that 
 |-|-|
 | **meshes** | Array of meshes. Each mesh of the array represents a frame of the animation. |
 | **material** | The meshes' material. [`SpriteMeshInstance`](#class-spritemeshinstance) only sets its albedo texture, so you can freely change any other property. |
+
 ## Class `SpriteMeshInstance`
 
 [`SpriteMeshInstance`](#class-spritemeshinstance), which inherit from [`MeshInstance`](https://docs.godotengine.org/en/stable/classes/class_meshinstance.html?highlight=MeshInstance), is used to create the meshes based on the sprite. It is inspired by [`Sprite3D`](https://docs.godotengine.org/en/stable/classes/class_sprite3d.html?highlight=sprite3d), so many of its properties behave similarly.
