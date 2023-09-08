@@ -1,0 +1,54 @@
+name: 🌟 Master
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  gdscript:
+    name: 💅 Linting / 🤖 GDScript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: pip3 install "gdtoolkit==4.*"
+      - run: bash -c 'for f in ./demo/addons/sprite_mesh/**/*.gd; do gdlint "$f"; done'
+      - run: bash -c 'for f in ./demo/addons/sprite_mesh/*.gd; do gdlint "$f"; done'
+      - run: bash -c 'for f in ./demo/**/*.gd; do gdlint "$f"; done'
+
+  spelling:
+    name: 💅 Linting / 👓 Spelling
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: codespell-project/actions-codespell@v1
+
+  markdown:
+    name: 💅 Linting / 📝 Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: DavidAnson/markdownlint-cli2-action@v9
+        with:
+          globs: README.md
+
+  package:
+    name: 📦 Package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Create addon
+        run: |
+          mkdir addons
+          cp -R demo/addons/sprite_mesh addons
+          cp LICENSE.md addons/sprite_mesh
+
+      - name: Create package
+        run: |
+          zip -r sprite_mesh.zip addons
+
+      - name: Upload addon
+        uses: actions/upload-artifact@v3
+        with:
+          name: sprite_mesh
+          path: sprite_mesh.zip
