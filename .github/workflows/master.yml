@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: pip3 install "gdtoolkit==4.*"
+      - run: bash -c 'for f in ./demo/addons/sprite_mesh/**/*.gd; do gdlint "$f"; done'
+      - run: bash -c 'for f in ./demo/addons/sprite_mesh/*.gd; do gdlint "$f"; done'
       - run: bash -c 'for f in ./demo/**/*.gd; do gdlint "$f"; done'
 
   spelling:

@@ -17,3 +17,11 @@ func set_material(new_material: StandardMaterial3D) -> void:
 	if material != new_material:
 		material = new_material
 		emit_changed()
+
+
+func get_meshes() -> Array[ArrayMesh]:
+	return meshes
+
+
+func get_material() -> StandardMaterial3D:
+	return material

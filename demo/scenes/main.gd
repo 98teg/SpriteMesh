@@ -2,18 +2,8 @@
 extends TextureRect
 
 
-@onready var preview := $MarginContainer/HBoxContainer/Preview
+const SIDEPANEL_PATH := "MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"
 
-@onready var example_option := $MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/OptionButton
-@onready var show_sprite_mesh := $MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CheckButton
-
-@onready var x_slider := $MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer2/HSlider
-@onready var y_slider := $MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer3/HSlider
-@onready var z_slider := $MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer2/HBoxContainer4/HSlider
-
-@onready var zoom_slider := $MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer3/HSlider
-
-@onready var changed_properties := $MarginContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer4/TextEdit
 
 var food_examples := [
 	preload("res://examples/food/beaf.gd").new(),
@@ -82,6 +72,20 @@ var characters_examples := [
 	preload("res://examples/characters/samurai.gd").new(),
 	preload("res://examples/characters/skeleton.gd").new(),
 ]
+
+
+@onready var preview := $MarginContainer/HBoxContainer/Preview
+
+@onready var example_option := get_node(SIDEPANEL_PATH + "/VBoxContainer/OptionButton")
+@onready var show_sprite_mesh := get_node(SIDEPANEL_PATH + "/HBoxContainer/CheckButton")
+
+@onready var x_slider := get_node(SIDEPANEL_PATH + "/VBoxContainer2/HBoxContainer2/HSlider")
+@onready var y_slider := get_node(SIDEPANEL_PATH + "/VBoxContainer2/HBoxContainer3/HSlider")
+@onready var z_slider := get_node(SIDEPANEL_PATH + "/VBoxContainer2/HBoxContainer4/HSlider")
+
+@onready var zoom_slider := get_node(SIDEPANEL_PATH + "/VBoxContainer3/HSlider")
+
+@onready var changed_properties := get_node(SIDEPANEL_PATH + "/VBoxContainer4/TextEdit")
 
 
 func _ready() -> void:

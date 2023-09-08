@@ -1,8 +1,8 @@
-extends Object
 class_name SpriteMeshExample
+extends Object
 
 
-const texture_path := "res://assets/NinjaAdventure/%s.png"
+const TEXTURE_PATH := "res://assets/NinjaAdventure/%s.png"
 
 var name := ""
 var sprite_3d := Sprite3D.new()
@@ -23,7 +23,7 @@ func init_properties() -> void:
 
 
 func set_texture(texture_name: String) -> void:
-	var texture: Texture2D = load(texture_path % texture_name)
+	var texture: Texture2D = load(TEXTURE_PATH % texture_name)
 
 	sprite_3d.texture = texture
 	sprite_mesh_instance.texture = texture

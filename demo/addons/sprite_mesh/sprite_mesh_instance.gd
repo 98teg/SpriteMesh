@@ -30,7 +30,7 @@ const GreedyAlgorithm = preload("./scripts/greedy_algorithm.gd")
 
 @export_group("Region")
 @export var region_enabled := false: set = set_region_enabled
-@export var region_rect := Rect2i(0, 0, 1, 1): set = set_region_rect
+@export var region_rect := Rect2i(0, 0, 0, 0): set = set_region_rect
 
 @export_group("Generation Parameters")
 @export_range(0, 1) var alpha_threshold := 0.0: set = set_alpha_threshold
@@ -200,7 +200,7 @@ func _get_frames() -> Array:
 		for j in range(hframes):
 			var frame := Frame.new()
 			var frame_position := Vector2i(j * frame_size.x, i * frame_size.y)
-			
+
 			frame.image = image.get_region(Rect2i(frame_position, frame_size))
 			frame.position = frame_offset + frame_position
 
