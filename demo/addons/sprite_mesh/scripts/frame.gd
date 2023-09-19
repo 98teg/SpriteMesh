@@ -1,4 +1,4 @@
-extends Object
+extends RefCounted
 
 
 const Frame := preload("./frame.gd")

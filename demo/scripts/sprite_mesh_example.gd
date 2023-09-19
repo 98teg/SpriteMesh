@@ -1,5 +1,5 @@
 class_name SpriteMeshExample
-extends Object
+extends RefCounted
 
 
 const TEXTURE_PATH := "res://assets/NinjaAdventure/%s.png"
