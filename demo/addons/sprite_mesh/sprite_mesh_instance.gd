@@ -114,13 +114,13 @@ func _generate_sprite_mesh() -> SpriteMesh:
 	if texture == null:
 		return sprite_mesh
 
-	sprite_mesh.meshes = _generate_meshes()
 	sprite_mesh.material = _generate_material()
+	sprite_mesh.meshes = _generate_meshes(sprite_mesh.material)
 
 	return sprite_mesh
 
 
-func _generate_meshes() -> Array[ArrayMesh]:
+func _generate_meshes(material: StandardMaterial3D) -> Array[ArrayMesh]:
 	var meshes: Array[ArrayMesh] = []
 
 	var st := SurfaceTool.new()
@@ -148,7 +148,7 @@ func _generate_meshes() -> Array[ArrayMesh]:
 		st.generate_tangents()
 
 		st.optimize_indices_for_cache()
-
+		st.set_material(material)
 		meshes.append(st.commit())
 
 		st.clear()
