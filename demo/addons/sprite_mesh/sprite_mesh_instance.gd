@@ -32,7 +32,7 @@ const GreedyAlgorithm = preload("./scripts/greedy_algorithm.gd")
 ## If [code]true[/code], mesh is flipped vertically.
 @export var flip_v := false: set = set_flip_v
 ## The direction in which the front of the mesh faces.
-@export_enum("X-Axis", "Y-Axis", "Z-Axis") var axis := Vector3.AXIS_Z: set = set_axis
+@export var axis := Vector3.AXIS_Z: set = set_axis
 
 @export_group("Animation")
 ## The number of columns in the sprite sheet.
