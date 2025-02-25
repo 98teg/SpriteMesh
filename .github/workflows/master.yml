@@ -48,7 +48,7 @@ jobs:
           zip -r sprite_mesh.zip addons
 
       - name: Upload addon
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: sprite_mesh
           path: sprite_mesh.zip
