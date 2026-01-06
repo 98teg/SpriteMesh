@@ -6,9 +6,12 @@ extends MeshInstance3D
 ## the sprite. It is inspired by [Sprite3D], so many of its properties behave similarly.
 
 
-const Quad := preload("./scripts/quad.gd")
-const Frame := preload("./scripts/frame.gd")
-const GreedyAlgorithm := preload("./scripts/greedy_algorithm.gd")
+## Emitted after the sprite mesh is generated.
+signal on_generated_sprite_mesh();
+
+const Quad = preload("./scripts/quad.gd")
+const Frame = preload("./scripts/frame.gd")
+const GreedyAlgorithm = preload("./scripts/greedy_algorithm.gd")
 
 ## [Texture2D] object to draw.
 @export var texture: Texture2D: set = set_texture
@@ -82,7 +85,7 @@ func _process(delta: float):
 	if Engine.is_editor_hint() and _pending_update:
 		if _seconds_left <= 0:
 			_pending_update = false
-			generated_sprite_mesh = _generate_sprite_mesh()
+			_generate_sprite_mesh()
 		else:
 			_seconds_left -= delta
 
@@ -91,7 +94,7 @@ func _process(delta: float):
 func update_sprite_mesh() -> void:
 	if _pending_update:
 		_pending_update = false
-		generated_sprite_mesh = _generate_sprite_mesh()
+		_generate_sprite_mesh()
 
 
 ## Returns the mesh that corresponds to a frame of the animation, represented by its [param index].
@@ -118,6 +121,10 @@ func _generate_sprite_mesh() -> SpriteMesh:
 
 	sprite_mesh.meshes = _generate_meshes()
 	sprite_mesh.material = _generate_material()
+
+	generated_sprite_mesh = sprite_mesh
+
+	on_generated_sprite_mesh.emit()
 
 	return sprite_mesh
 
